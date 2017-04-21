@@ -16,7 +16,7 @@ public class PersonDAOImpl implements PersonDAO {
 
     private final String TABLE_NAME = "Person";
 
-    public static PersonDAOImpl getInstancia() {
+    public static PersonDAOImpl getInstance() {
         if(personDAO == null) {
             personDAO = new PersonDAOImpl();
         }
@@ -29,7 +29,7 @@ public class PersonDAOImpl implements PersonDAO {
     @Override
     public List<Person> read() throws Exception{
         Connection con = connectToAndQueryDatabase("root", "mysql");
-        List<Person> lista = new ArrayList<Person>();
+        List<Person> list = new ArrayList<>();
 
         Statement stmt = con.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT id, nombre, apellido, dni, edad, genero FROM " + TABLE_NAME);
@@ -44,10 +44,10 @@ public class PersonDAOImpl implements PersonDAO {
             String gender = rs.getString("genero");
 
             p = new Person(id, name , lastName, dni, age, gender);
-            lista.add(p);
+            list.add(p);
         }
 
-        return lista;
+        return list;
 
     }
 
@@ -56,16 +56,14 @@ public class PersonDAOImpl implements PersonDAO {
 
         Statement stmt = con.createStatement();
         String query = "INSERT into " + TABLE_NAME + " (nombre, apellido, dni, edad, genero) values (\""+ p.getName() + "\", \"" + p.getLastName() + "\" , \"" + p.getDni() + "\" , " + p.getAge() +", '" + p.getGender() + "')";
-        int rs = stmt.executeUpdate(query);
-        return rs;
+        return stmt.executeUpdate(query);
     }
 
-    public Connection connectToAndQueryDatabase(String username, String password) throws Exception {
+    private Connection connectToAndQueryDatabase(String username, String password) throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection con = DriverManager.getConnection(
+        return DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/Db_Testing",
                 username,
                 password);
-        return con;
     }
 }

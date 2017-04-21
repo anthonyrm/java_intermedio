@@ -8,7 +8,7 @@ import java.util.List;
 public interface PersonDAO {
 
 
-    public List<Person> read() throws Exception;
+    List<Person> read() throws Exception;
 
-    public int insert(Person person) throws Exception;
+    int insert(Person person) throws Exception;
 }

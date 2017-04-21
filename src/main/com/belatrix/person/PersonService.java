@@ -9,7 +9,7 @@ public class PersonService {
 
     public static PersonService personService = null;
 
-    public static PersonService getInstancia () {
+    public static PersonService getInstance() {
         if(personService == null) {
             personService = new PersonService();
         }
@@ -19,22 +19,16 @@ public class PersonService {
     private PersonService() {}
 
     public List<Person> read() throws Exception {
-        PersonDAO personDAO = PersonDAOImpl.getInstancia();
-        List<Person> people = personDAO.read();
-
-        return people;
+        PersonDAO personDAO = PersonDAOImpl.getInstance();
+        return personDAO.read();
     }
 
     public boolean insert(String name, String lastName, String dni, int age, String gender) throws Exception {
-        PersonDAO personDAO = PersonDAOImpl.getInstancia();
+        PersonDAO personDAO = PersonDAOImpl.getInstance();
 
         Person p = new Person( 0, name, lastName, dni, age, gender);
         int result  = personDAO.insert(p);
 
-        if(result > 0) {
-            return true;
-        }
-
-        return false;
+        return result > 0;
     }
 }

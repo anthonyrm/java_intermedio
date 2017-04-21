@@ -1,10 +1,5 @@
 package com.belatrix.person;
 
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 
 public class Main {
@@ -15,21 +10,22 @@ public class Main {
 
     public static void read() throws Exception {
 
-        PersonService personService = PersonService.getInstancia();
+        PersonService personService = PersonService.getInstance();
         List<Person> people = personService.read();
 
-        for (int i = 0; i < people.size(); i++) {
-            System.out.println("ID: " + people.get(i).getId()
-                    + " - Name: " + people.get(i).getName()
-                    + " - Last Name: " + people.get(i).getLastName()
-                    + " - DNI: " + people.get(i).getDni()
-                    + " - Age: " + people.get(i).getAge()
-                    + " - Gender: " + people.get(i).getGender());
+        for (Person p: people) {
+            System.out.println(
+                        "ID: "              + p.getId()
+                    +   " - Name: "         + p.getName()
+                    +   " - Last Name: "    + p.getLastName()
+                    +   " - DNI: "          + p.getDni()
+                    +   " - Age: "          + p.getAge()
+                    +   " - Gender: "       + p.getGender());
         }
     }
 
     public static void insert() throws Exception {
-        PersonService personService = PersonService.getInstancia();
+        PersonService personService = PersonService.getInstance();
 
         boolean result  = personService.insert("Juan", "Ramirez", "87654321", 30, "m");
 
