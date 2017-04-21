@@ -31,4 +31,21 @@ public class PersonService {
 
         return result > 0;
     }
+
+    public boolean delete(int id) throws Exception {
+        PersonDAO personDAO = PersonDAOImpl.getInstance();
+
+        int result  = personDAO.delete(id);
+
+        return result > 0;
+    }
+
+    public boolean update(int id, String name, String lastName, String dni, int age, String gender) throws Exception {
+        PersonDAO personDAO = PersonDAOImpl.getInstance();
+
+        Person p = new Person( id, name, lastName, dni, age, gender);
+        int result  = personDAO.update(p);
+
+        return result > 0;
+    }
 }

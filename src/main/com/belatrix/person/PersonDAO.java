@@ -7,8 +7,11 @@ import java.util.List;
  */
 public interface PersonDAO {
 
-
     List<Person> read() throws Exception;
 
-    int insert(Person person) throws Exception;
+    int insert(Person p) throws Exception;
+
+    int delete(int id) throws Exception;
+
+    int update(Person p) throws Exception;
 }

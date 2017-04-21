@@ -38,4 +38,32 @@ public class Main {
         }
     }
 
+    public static void delete() throws Exception {
+        PersonService personService = PersonService.getInstance();
+
+        boolean result  = personService.delete(3);
+
+        if(result) {
+            System.out.println("Correct");
+            read();
+        }
+        else {
+            System.out.println("Error");
+        }
+    }
+
+    public static void update() throws Exception {
+        PersonService personService = PersonService.getInstance();
+
+        boolean result  = personService.update(2,"Juan", "Ramirez", "87654321", 30, "m");
+
+        if(result) {
+            System.out.println("Correct");
+            read();
+        }
+        else {
+            System.out.println("Error");
+        }
+    }
+
 }

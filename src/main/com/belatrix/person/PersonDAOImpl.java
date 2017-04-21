@@ -51,11 +51,36 @@ public class PersonDAOImpl implements PersonDAO {
 
     }
 
+    @Override
     public int insert(Person p) throws Exception{
         Connection con = connectToAndQueryDatabase("root", "mysql");
 
         Statement stmt = con.createStatement();
         String query = "INSERT into " + TABLE_NAME + " (nombre, apellido, dni, edad, genero) values (\""+ p.getName() + "\", \"" + p.getLastName() + "\" , \"" + p.getDni() + "\" , " + p.getAge() +", '" + p.getGender() + "')";
+        return stmt.executeUpdate(query);
+    }
+
+    @Override
+    public int delete(int id) throws Exception{
+        Connection con = connectToAndQueryDatabase("root", "mysql");
+
+        Statement stmt = con.createStatement();
+        String query = "DELETE from " + TABLE_NAME + " where id = " + id;
+        return stmt.executeUpdate(query);
+    }
+
+    @Override
+    public int update(Person p) throws Exception{
+        Connection con = connectToAndQueryDatabase("root", "mysql");
+
+        Statement stmt = con.createStatement();
+        String query = "UPDATE " + TABLE_NAME + " set "
+                + "nombre=\"" + p.getName() + "\", "
+                + "apellido=\"" + p.getLastName() + "\", "
+                + "dni=\"" + p.getDni() + "\", "
+                + "edad=" + p.getDni() + ", "
+                + "genero=\"" + p.getGender() + "\" "
+                + "WHERE id=" + p.getId();
         return stmt.executeUpdate(query);
     }
 
