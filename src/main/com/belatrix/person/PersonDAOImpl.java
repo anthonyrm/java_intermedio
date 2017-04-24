@@ -78,7 +78,7 @@ public class PersonDAOImpl implements PersonDAO {
                 + "nombre=\"" + p.getName() + "\", "
                 + "apellido=\"" + p.getLastName() + "\", "
                 + "dni=\"" + p.getDni() + "\", "
-                + "edad=" + p.getDni() + ", "
+                + "edad=" + p.getAge() + ", "
                 + "genero=\"" + p.getGender() + "\" "
                 + "WHERE id=" + p.getId();
         return stmt.executeUpdate(query);
