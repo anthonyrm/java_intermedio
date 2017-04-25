@@ -22,40 +22,29 @@ public class PersonServiceTest {
 
     @Test
     public void demo() throws Exception{
+
+        int size = 0;
+
         // Insert user
         PersonService personService = PersonService.getInstance();
         boolean inserted = personService.insert("Kei", "Takayama", "18273645", 40, "m");
 
         // List user
         List<Person> list = personService.read();
-        for (Person p: list) {
-            System.out.println(
-                    "ID: "              + p.getId()
-                +   " - Name: "         + p.getName()
-                +   " - Last Name: "    + p.getLastName()
-                +   " - DNI: "          + p.getDni()
-                +   " - Age: "          + p.getAge()
-                +   " - Gender: "       + p.getGender());
-        }
+        size = list.size();
 
-        int index = list.size();
-        Assert.assertTrue(list.get(index -1).getDni().equals("18273645"));
-        Assert.assertTrue(list.get(index -1).getName().equals("Kei"));
-        Assert.assertTrue(list.get(index -1).getLastName().equals("Takayama"));
+        Assert.assertEquals("Kei", list.get(size - 1).getName());
+        Assert.assertEquals("Takayama", list.get(size - 1).getLastName());
+        Assert.assertEquals("18273645", list.get(size - 1).getDni());
+        Assert.assertEquals(40, list.get(size - 1).getAge());
+        Assert.assertEquals("m", list.get(size - 1).getGender());
 
         // Delete user
         boolean deleted = personService.delete(list.get(list.size() - 1).getId());
 
         // List user
         list = personService.read();
-        for (Person p: list) {
-            System.out.println(
-                    "ID: "              + p.getId()
-                +   " - Name: "         + p.getName()
-                +   " - Last Name: "    + p.getLastName()
-                +   " - DNI: "          + p.getDni()
-                +   " - Age: "          + p.getAge()
-                +   " - Gender: "       + p.getGender());
-        }
+
+        Assert.assertEquals(size - 1, list.size());
     }
 }

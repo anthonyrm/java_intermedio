@@ -8,6 +8,7 @@ import java.util.List;
 public class PersonService {
 
     public static PersonService personService = null;
+    private PersonDAO personDAO = null;
 
     public static PersonService getInstance() {
         if(personService == null) {
@@ -16,15 +17,23 @@ public class PersonService {
 
         return personService;
     }
-    private PersonService() {}
+    private PersonService() {
+        if(personDAO == null) {
+            personDAO = PersonDAOImpl.getInstance();
+        }
+    }
+
+    public void setPersonDAO(PersonDAO p) {
+        this.personDAO = p;
+    }
 
     public List<Person> read() throws Exception {
-        PersonDAO personDAO = PersonDAOImpl.getInstance();
+        PersonDAO personDAO = this.personDAO;
         return personDAO.read();
     }
 
     public boolean insert(String name, String lastName, String dni, int age, String gender) throws Exception {
-        PersonDAO personDAO = PersonDAOImpl.getInstance();
+        PersonDAO personDAO = this.personDAO;
 
         Person p = new Person( 0, name, lastName, dni, age, gender);
         int result  = personDAO.insert(p);
@@ -33,7 +42,7 @@ public class PersonService {
     }
 
     public boolean delete(int id) throws Exception {
-        PersonDAO personDAO = PersonDAOImpl.getInstance();
+        PersonDAO personDAO = this.personDAO;
 
         int result  = personDAO.delete(id);
 
@@ -41,7 +50,7 @@ public class PersonService {
     }
 
     public boolean update(int id, String name, String lastName, String dni, int age, String gender) throws Exception {
-        PersonDAO personDAO = PersonDAOImpl.getInstance();
+        PersonDAO personDAO = this.personDAO;
 
         Person p = new Person( id, name, lastName, dni, age, gender);
         int result  = personDAO.update(p);

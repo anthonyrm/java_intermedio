@@ -87,7 +87,7 @@ public class PersonDAOImpl implements PersonDAO {
     private Connection connectToAndQueryDatabase(String username, String password) throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/Db_Testing",
+                "jdbc:mysql://localhost:3306/Db_Testing?useSSL=false",
                 username,
                 password);
     }
