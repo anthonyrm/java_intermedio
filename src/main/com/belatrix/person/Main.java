@@ -1,11 +1,22 @@
 package com.belatrix.person;
 
-import java.util.List;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class Main {
 
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
     public static void main(String[] args) throws Exception {
-        delete();
+//        System.out.println("ok");
+        usingSimpleDateFormat();
     }
 
     public static void read() throws Exception {
@@ -64,6 +75,48 @@ public class Main {
         else {
             System.out.println("Error");
         }
+    }
+
+    public static void usingLocaleAndi18n() {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classLoader.getResourceAsStream("logging.properties");
+        InputStream prop = classLoader.getResourceAsStream("app.properties");
+        Properties properties = new Properties();
+        Locale aLocale;
+        ResourceBundle messages = null;
+
+        try{
+            // load app properties
+            properties.load(prop);
+
+            // load logging properties
+            LogManager.getLogManager().readConfiguration(is);
+
+            // Set locale
+            aLocale = new Locale(properties.getProperty("locale.language"),properties.getProperty("locale.country"));
+            messages = ResourceBundle.getBundle("MessagesBundle", aLocale);
+
+            logger.log(Level.INFO, messages.getString("labels.generic.init"));
+        } catch(IOException ioe) {
+            logger.log(Level.SEVERE, messages.getString("labels.generic.error"), ioe);
+        }
+
+    }
+
+    public static void usingDateFormat() {
+        // Show date in spanish and full
+        DateFormat formatter = DateFormat.getDateInstance(DateFormat.FULL, new Locale("es", "ES"));
+        System.out.print(formatter.getCalendar().getTime());
+    }
+
+    public static void usingSimpleDateFormat() throws Exception {
+        // Calculate birthday
+        String cumple = "08-12-1991";
+        DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        formatter.parse(cumple);
+
+        Calendar today = Calendar.getInstance();
+        System.out.println(today.get(Calendar.YEAR) - formatter.getCalendar().get(Calendar.YEAR));
     }
 
 }
