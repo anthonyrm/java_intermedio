@@ -66,4 +66,9 @@ public class Person {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
+    @Override
+    public String toString(){
+        return this.id + "\t-\t" + this.name + "\t-\t" + this.lastName + "\t-\t" + this.dni + "\t-\t" + this.gender +  "\t-\t" +this.age + "\n";
+    }
 }

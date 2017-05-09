@@ -1,8 +1,6 @@
 package com.belatrix.person;
 
-import java.io.IOError;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -15,8 +13,7 @@ public class Main {
     private static final Logger logger = Logger.getLogger(Main.class.getName());
 
     public static void main(String[] args) throws Exception {
-//        System.out.println("ok");
-        usingSimpleDateFormat();
+        writePersonInFile();
     }
 
     public static void read() throws Exception {
@@ -117,6 +114,32 @@ public class Main {
 
         Calendar today = Calendar.getInstance();
         System.out.println(today.get(Calendar.YEAR) - formatter.getCalendar().get(Calendar.YEAR));
+    }
+
+    public static void writePersonInFile() throws Exception {
+        PersonService personService = PersonService.getInstance();
+        List<Person> personList = personService.read();
+        FileOutputStream fileOutputStream;
+        File personFile = new File("personList.txt");
+        String inputText;
+        String header = "Id\t\tName\t\tLasName\t\tDni\t\tGender\t\tAge\n";
+
+        try {
+            fileOutputStream = new FileOutputStream(personFile);
+            if(!personFile.exists()) {
+                personFile.createNewFile();
+            }
+
+            fileOutputStream.write(header.getBytes());
+            for (Person p: personList) {
+                inputText = p.toString();
+                fileOutputStream.write(inputText.getBytes());
+            }
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch(FileNotFoundException fnfe) {
+            System.out.print("Error" + fnfe.getMessage());
+        }
     }
 
 }

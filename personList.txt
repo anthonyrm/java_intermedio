@@ -1,0 +1,5 @@
+Id		Name		LasName		Dni		Gender		Age
+1	-	Juan	-	Perez	-	12345678	-	m	-	25
+2	-	Juan	-	Ramirez	-	87654321	-	m	-	30
+4	-	Kei	-	Takayama	-	18273645	-	m	-	40
+7	-	Kei	-	Takayama	-	18273645	-	m	-	40
